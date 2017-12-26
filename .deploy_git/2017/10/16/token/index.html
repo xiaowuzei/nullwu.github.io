@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="vue.js,token,vuex,ndoe.js," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="乱码" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="首次发起请求reg.vue  注册页面，注册时触发actions,把用户的参数带过去  123456    user: &amp;#123;            username: &apos;&apos;,            password: &apos;&apos;,            repassword: &apos;&apos;,          &amp;#125;this.$store.dispatch(&apos;UserReg&apos;, this.user">
+<meta name="keywords" content="vue.js,token,vuex,ndoe.js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="token">
+<meta property="og:url" content="http://yoursite.com/2017/10/16/token/index.html">
+<meta property="og:site_name" content="乱码">
+<meta property="og:description" content="首次发起请求reg.vue  注册页面，注册时触发actions,把用户的参数带过去  123456    user: &amp;#123;            username: &apos;&apos;,            password: &apos;&apos;,            repassword: &apos;&apos;,          &amp;#125;this.$store.dispatch(&apos;UserReg&apos;, this.user">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/token01.jpg">
+<meta property="og:updated_time" content="2017-11-23T13:37:59.248Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="token">
+<meta name="twitter:description" content="首次发起请求reg.vue  注册页面，注册时触发actions,把用户的参数带过去  123456    user: &amp;#123;            username: &apos;&apos;,            password: &apos;&apos;,            repassword: &apos;&apos;,          &amp;#125;this.$store.dispatch(&apos;UserReg&apos;, this.user">
+<meta name="twitter:image" content="http://yoursite.com/images/token01.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/16/token/"/>
+
+
+
+
+
+  <title>token | 乱码</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">乱码</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/16/token/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xiaowuzi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="乱码">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">token</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-16T10:28:07+08:00">
+                2017-10-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/尚在研究/" itemprop="url" rel="index">
+                    <span itemprop="name">尚在研究</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="首次发起请求"><a href="#首次发起请求" class="headerlink" title="首次发起请求"></a>首次发起请求</h2><p>reg.vue</p>
+<blockquote>
+<p>注册页面，注册时触发actions,把用户的参数带过去</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">    user: &#123;</span><br><span class="line">            username: <span class="string">''</span>,</span><br><span class="line">            password: <span class="string">''</span>,</span><br><span class="line">            repassword: <span class="string">''</span>,</span><br><span class="line">          &#125;</span><br><span class="line"><span class="keyword">this</span>.$store.dispatch(<span class="string">'UserReg'</span>, <span class="keyword">this</span>.user);</span><br></pre></td></tr></table></figure>
+<p>actions.js</p>
+<blockquote>
+<p>带着参数调用注册接口.如果注册成功，触发mutations，并跳转到admin页面</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> api <span class="keyword">from</span> <span class="string">'../api'</span></span><br><span class="line"><span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">'../router'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line"><span class="comment">// 后台注册</span></span><br><span class="line">  UserReg(&#123;commit&#125;,data)&#123;</span><br><span class="line">   api.localReg(data)   <span class="comment">//  return axios.post('/api/reg',data)</span></span><br><span class="line">       .then(<span class="function">(<span class="params">&#123;data&#125;</span>)=&gt;</span>&#123;</span><br><span class="line">         <span class="keyword">if</span>(data.code==<span class="number">200</span>)&#123;</span><br><span class="line">           commit(<span class="string">'USER_REG'</span>,data.token)</span><br><span class="line">             router.replace(&#123;<span class="attr">path</span>:<span class="string">'/admin'</span>&#125;)</span><br><span class="line">         &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">          <span class="comment">//  上一个catch处理了MongoError</span></span><br><span class="line">           alert(data.message)</span><br><span class="line">         &#125;</span><br><span class="line">       &#125;)</span><br><span class="line">       .catch(<span class="function">(<span class="params">error</span>)=&gt;</span>&#123;</span><br><span class="line">        <span class="comment">//  处理的是上一个if的错误</span></span><br><span class="line">         alert(error.toString())</span><br><span class="line">       &#125;)</span><br><span class="line">   &#125;,</span><br></pre></td></tr></table></figure>
+<p>mutations.js</p>
+<blockquote>
+<p>对token做存储和本地缓存</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;USER_SIGNIN,USER_SIGNOUT,USER_REG&#125; <span class="keyword">from</span> <span class="string">'./types'</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span>  &#123;</span><br><span class="line">  [USER_REG](state,token)&#123;</span><br><span class="line">    localStorage.setItem(<span class="string">'jwt'</span>,token);</span><br><span class="line">    state.token = token;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="后台首次处理"><a href="#后台首次处理" class="headerlink" title="后台首次处理"></a>后台首次处理</h2><p>router.js</p>
+<blockquote>
+<p>接收到注册请求，试图将用户信息存进mongodb中。如果创建成功，就创建token并下发给前端</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">const</span> router = express.Router()</span><br><span class="line"><span class="keyword">const</span> User = <span class="built_in">require</span>(<span class="string">'../models'</span>).User</span><br><span class="line"><span class="keyword">const</span> createToken = <span class="built_in">require</span>(<span class="string">'../middleware/createToken'</span>)</span><br><span class="line"><span class="comment">// 注册</span></span><br><span class="line">router.post(<span class="string">'/reg'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> username = req.body.username</span><br><span class="line">  <span class="keyword">let</span> password = req.body.password</span><br><span class="line">  <span class="keyword">let</span> user = &#123;</span><br><span class="line">    username,</span><br><span class="line">    password</span><br><span class="line">  &#125;</span><br><span class="line">  User.create(user)</span><br><span class="line">    .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      res.send(&#123;</span><br><span class="line">        <span class="comment">// 创建用户成功</span></span><br><span class="line">        code: <span class="number">200</span>,</span><br><span class="line">        token: createToken(username)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">    .catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 操作数据库的时候发生错误</span></span><br><span class="line">      <span class="keyword">if</span> (err.message.match(<span class="string">'E11000 duplicate key'</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> res.json(&#123;</span><br><span class="line">          code: <span class="number">-200</span>,</span><br><span class="line">          message: <span class="string">'用户名重复'</span></span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// 服务器发生错误（例如status:）</span></span><br><span class="line">      <span class="keyword">return</span> res.json(&#123;</span><br><span class="line">        code: <span class="number">-200</span>,</span><br><span class="line">        message: err.toString()</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = router;</span><br></pre></td></tr></table></figure>
+<p>createToken.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> jwt = <span class="built_in">require</span>(<span class="string">'jsonwebtoken'</span>)</span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> expiry = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line">  expiry.setDate(expiry.getDate() + <span class="number">7</span>); <span class="comment">//有效期设置为七天</span></span><br><span class="line">  <span class="keyword">const</span> token = jwt.sign(&#123;</span><br><span class="line">    name: name,</span><br><span class="line">    exp: <span class="built_in">parseInt</span>(expiry.getTime() / <span class="number">1000</span>) <span class="comment">//除以1000以后表示的是秒数</span></span><br><span class="line">  &#125;, process.env.JWT_SECRET)</span><br><span class="line">  <span class="keyword">return</span> token;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>发给前台后，是一串base64编译的</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> payload = <span class="built_in">JSON</span>.parse(<span class="built_in">window</span>.atob(token.split(<span class="string">'.'</span>)[<span class="number">1</span>]));</span><br></pre></td></tr></table></figure>
+<p>dovenv</p>
+<blockquote>
+<p>用文件管理起来，node有一个dotenv的模块，可以将这个密钥设置成环境变量。在根目录下创建一个.env的文件，并设置密码：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JWT_SECRET=hello</span><br></pre></td></tr></table></figure>
+<p>同时还要注意，在gitignore 中增加这个文件的忽略，不必上传到git上。然后我们安装dotenv模块：</p>
+<p>在app.js最顶端引用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>(<span class="string">'dotenv'</span>).load();</span><br><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><p>api.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">axios.defaults.headers.post[<span class="string">'Content-Type'</span>] = <span class="string">'application/json'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> instance = axios.create();    </span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> front_instance = axios.create();  </span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(localStorage.getItem(<span class="string">'jwt'</span>))&#123;</span><br><span class="line">  <span class="comment">/* localStorage.getItem('jwt')获取的是字符串</span></span><br><span class="line"><span class="comment">    Bearer token(通过Authorization头部字段发送到服务端便于验证)的格式：Bearer XXXXXXXXXX</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 需要权限的axios 的Authorization 头为 bearer加上 token</span></span><br><span class="line">  instance.defaults.headers.common[<span class="string">'Authorization'</span>] = <span class="string">"Bearer "</span>+localStorage.getItem(<span class="string">'jwt'</span>).replace(<span class="regexp">/(^\")|(\"$)/g</span>,<span class="string">''</span>)</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line"> addClassify(params)&#123;</span><br><span class="line">    <span class="keyword">return</span> instance.post(<span class="string">'/api/classify/create'</span>,params);</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+<p><img src="/images/token01.jpg" alt="image"></p>
+<h2 id="后台验证"><a href="#后台验证" class="headerlink" title="后台验证"></a>后台验证</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 添加分类</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> checkToken = <span class="built_in">require</span>(<span class="string">'../middleware/checkToken'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">router.post(<span class="string">'/classify/create'</span>, checkToken, (req, res) =&gt; &#123;</span><br><span class="line">  <span class="keyword">new</span> Classify(&#123;</span><br><span class="line">      name: req.body.className</span><br><span class="line">    &#125;).save()</span><br><span class="line">    .then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      res.send(&#123;</span><br><span class="line">        code: <span class="number">200</span>,</span><br><span class="line">        message: <span class="string">'创建成功'</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">    .catch(<span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">      res.send(&#123;</span><br><span class="line">        code: <span class="number">-200</span>,</span><br><span class="line">        message: err.toString()</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>checkToken.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 验证token中间件</span></span><br><span class="line"><span class="keyword">var</span> jwt = <span class="built_in">require</span>(<span class="string">'jsonwebtoken'</span>)</span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">req, res, next</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (req.headers[<span class="string">'authorization'</span>]) &#123;</span><br><span class="line">    <span class="comment">//  抽取出token</span></span><br><span class="line">    <span class="keyword">var</span> token = req.headers[<span class="string">'authorization'</span>].split(<span class="string">' '</span>)[<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">var</span> decoded = jwt.decode(token, process.env.JWT_SECRET)</span><br><span class="line">    <span class="comment">// 如果过期了就重新登录</span></span><br><span class="line">    <span class="comment">// 验证token也需要优化</span></span><br><span class="line">    <span class="keyword">if</span> (token &amp;&amp; decoded.exp &lt;= <span class="built_in">Date</span>.now() / <span class="number">1000</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> res.send(&#123;</span><br><span class="line">        code: <span class="number">401</span>,</span><br><span class="line">        message: <span class="string">"授权已经过期，请重新登陆"</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  next();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue-js/" rel="tag"># vue.js</a>
+          
+            <a href="/tags/token/" rel="tag"># token</a>
+          
+            <a href="/tags/vuex/" rel="tag"># vuex</a>
+          
+            <a href="/tags/ndoe-js/" rel="tag"># ndoe.js</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/15/es6-data/" rel="next" title="es6,es7对数据返回的处理">
+                <i class="fa fa-chevron-left"></i> es6,es7对数据返回的处理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/16/what-token/" rel="prev" title="what-token">
+                what-token <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="xiaowuzi" />
+            
+              <p class="site-author-name" itemprop="name">xiaowuzi</p>
+              <p class="site-description motion-element" itemprop="description">keep null,keep coding...</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/xiaowuzei" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#首次发起请求"><span class="nav-number">1.</span> <span class="nav-text">首次发起请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后台首次处理"><span class="nav-number">2.</span> <span class="nav-text">后台首次处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#验证"><span class="nav-number">3.</span> <span class="nav-text">验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后台验证"><span class="nav-number">4.</span> <span class="nav-text">后台验证</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiaowuzi</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+     
+        
+    <div id="a"></div>
+    <div id="b"></div>
+    <div id="c">
+
+    </div>
+    <div id="d"></div>
+    <div id="e"></div>
+</body>
+
+</html>
+<script>
+	function next(curEle) {
+
+		var nex = curEle.nextSibling;
+		while(nex && nex.nodeType !== 1) {
+			nex = nex.nextSibling;
+		}
+		return nex;
+	}
+
+	//->prevAll:获取所有的哥哥元素节点
+	function prevAll(curEle) {
+		var ary = [];
+		var pre = this.prev(curEle);
+		while(pre) {
+			ary.unshift(pre);
+			pre = this.prev(pre);
+		}
+		return ary;
+	}
+
+	//->nextAll:获取所有的弟弟元素节点
+	function nextAll(curEle) {
+		var ary = [];
+		var nex = next(curEle);
+		while(nex) {
+			ary.push(nex);
+			nex = this.next(nex);
+		}
+		return ary;
+    }
+    function firstChild(curEle) {
+		var chs = this.children(curEle);
+        // return chs.length > 0 ? chs[0] : null;
+        return chs[0]
+    }
+    function children(curEle, tagName) {
+
+			ary = curEle.children;
+		
+		if (typeof tagName === "string") {
+			for (var k = 0; k < ary.length; k++) {
+				var curEleNode = ary[k];
+				if (curEleNode.nodeName.toLowerCase() !== tagName.toLowerCase()) {
+					ary.splice(k, 1);
+					k--;
+				}
+			}
+		}
+		return ary;
+	}
+    var c=document.getElementById('c')
+    console.log(firstChild(c))
+
+</script>

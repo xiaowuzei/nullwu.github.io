@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[柯里化函数]]></title>
+    <url>%2F2017%2F11%2F25%2Fkelihua%2F</url>
+    <content type="text"><![CDATA[1234567891011121314151617181920212223242526272829303132333435363738394041424344454647var obj = &#123; name: 'nullwu'&#125;function fn(a, e) &#123; console.log(a, e)&#125;// 给定时器绑定一个方法，当定时器到达让方法执行，并且让fn中的this改为obj// 1、用call，但是需要包裹一个匿名函数// setTimeout(function()&#123;// fn.call(obj)// &#125;,1000)// // 2、直接用bind,原理是首先执行bind这个方法，将返回值和定时器绑定，到时间执行这个返回值// setTimeout(fn.bind(obj), 1000)// 3、自定义bind来实现// setTimeout(bind(fn,obj,100,200),1000)function bind(callback, context) &#123; var outerArg = Array.prototype.slice.call(arguments, 2) //获取除了前两个以外的参数(传的参数) context = context || window // 点击以后会这行这个小函数，所以实际上事件对象会在这里出现 return function (e) &#123; var innerArg = Array.prototype.slice.call(arguments, 0) callback.apply(context, outerArg.concat(innerArg)) &#125;&#125;// document.body.onclick=bind(fn,obj,100,200)//默认的把事件对象也预先处理Function.prototype.mybind = function (context) &#123; // context是要把this改为谁 var _this = this; // 获取剩余的参数 var outerArg = Array.prototype.slice.call(arguments, 1) if ('bind' in Function.prototype) &#123; // 把参数传给原生的bind return this.bind.apply(this, [context].concat(outerArg)) //this是调用者 &#125; return function () &#123; // 获取事件对象 var innerArg = Array.prototype.slice.call(arguments, 0) // 兼容ie6-8的事件对象 innerArg.length === 0 ? innerArg[innerArg.length] = window.event : null; // 将剩余参数和事件对象拼接 var arg = outerArg.concat(innerArg) _this.apply(context, arg) &#125;&#125;document.body.onclick = fn.mybind(obj, 100)]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>%2F2017%2F11%2F25%2Ftest%2F</url>
+    <content type="text"><![CDATA[Document 柯里化函数思想：一个js预处理的思想 var obj = { name: 'nullwu' } function fn(a, e) { console.log(a, e) } // 给定时器绑定一个方法，当定时器到达让方法执行，并且让fn中的this改为obj // 1、用call，但是需要包裹一个匿名函数 // setTimeout(function(){ // fn.call(obj) // },1000) // // 2、直接用bind,原理是首先执行bind这个方法，将返回值和定时器绑定，到时间执行这个返回值 // setTimeout(fn.bind(obj), 1000) // 3、自定义bind来实现 // setTimeout(bind(fn,obj,100,200),1000) function bind(callback, context) { var outerArg = Array.prototype.slice.call(arguments, 2) //获取除了前两个以外的参数(传的参数) context = context || window // 点击以后会这行这个小函数，所以实际上事件对象会在这里出现 return function (e) { var innerArg = Array.prototype.slice.call(arguments, 0) callback.apply(context, outerArg.concat(innerArg)) } } // document.body.onclick=bind(fn,obj,100,200)//默认的把事件对象也预先处理 Function.prototype.mybind = function (context) { // context是要把this改为谁 var _this = this; // 获取剩余的参数 var outerArg = Array.prototype.slice.call(arguments, 1) if ('bind' in Function.prototype) { // 把参数传给原生的bind return this.bind.apply(this, [context].concat(outerArg)) //this是调用者 } return function () { // 获取事件对象 var innerArg = Array.prototype.slice.call(arguments, 0) // 兼容ie6-8的事件对象 innerArg.length === 0 ? innerArg[innerArg.length] = window.event : null; // 将剩余参数和事件对象拼接 var arg = outerArg.concat(innerArg) _this.apply(context, arg) } } document.body.onclick = fn.mybind(obj, 100)]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[sport]]></title>
+    <url>%2F2017%2F11%2F24%2Fsport%2F</url>
+    <content type="text"><![CDATA[1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586878889// 1=&gt; 2秒钟匀速运动到line处(function () &#123; var box = document.getElementById('box') var step = 400 / 2000 * 10 // 总长400,每一步需要多少 var curLeft = 0; var end = 400; setInterval(() =&gt; &#123; if (curLeft + step &gt;= end) &#123; //如果下一步超出，那么直接到指定位置 clearInterval() curLeft = end &#125; else &#123; curLeft += step; &#125; box.style.left = curLeft + 'px' &#125;, 10)&#125;)();// 2=&gt; 不限时缓冲运动到line处(function () &#123; var box = document.getElementById('box2') var end = 400 var curLeft = 0 setInterval(() =&gt; &#123; var step = (end - box.offsetLeft) / 10; step = step &gt; 0 ? Math.ceil(step) : Math.floor(step) if (curLeft + step &gt;= end) &#123; clearInterval() curLeft = end &#125; else &#123; curLeft += step; &#125; box.style.left = curLeft + 'px' &#125;, 30)&#125;)();//3=》匀速第二种方式(function () &#123; var box = document.getElementById('box3') var start = 0; var end = 400; var change=end-start; var times = 2000; var now = 0; // 现在应该出现的地点=总长*走过的时间/总时间+起点 function linear(s, c, t, n) &#123; return s + c * n / t &#125; setInterval(() =&gt; &#123; if (now &gt;= times) &#123; box.style.left = end + 'px' return &#125; box.style.left = linear(0, 400, 2000, now) + 'px' now += 10; &#125;, 10)&#125;)();//4=&gt;用settimeout来实现第一种方法(function () &#123; var box = document.getElementById('box4') var step = 400 / 2000 * 10 var curLeft = 0; var end = 400; // setInterval(() =&gt; &#123; // if (curLeft + step &gt;= end) &#123; // clearInterval() // curLeft = end // &#125; else &#123; // curLeft += step; // &#125; // box.style.left = curLeft + 'px' // &#125;, 10) var timer = null; function move() &#123; clearTimeout(timer) if (curLeft + step &gt;= end) &#123; clearTimeout() curLeft = end &#125; else &#123; curLeft += step; &#125; box.style.left = curLeft + 'px' timer = setTimeout(move, 10) &#125; move()&#125;)();]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[bangding]]></title>
+    <url>%2F2017%2F11%2F24%2Fbangding%2F</url>
+    <content type="text"><![CDATA[123456789101112var box = document.getElementById('box')function fn() &#123; console.log('hello')&#125;// 点击的时候才执行box.onclick = function () &#123; fn()&#125;// 直接执行fn,将返回值赋给点击事件，如果没有返回值，就是undefinedbox.onclick = fn()// 同第一种方法，如果需要传参就需要换成第一种box.onclick = fn]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[yibu]]></title>
+    <url>%2F2017%2F11%2F23%2Fyibu%2F</url>
+    <content type="text"><![CDATA[同步和异步 在js中异步编程有四种情况：定时器、事件绑定、ajax读取数据可以设置为异步，回调函数。 实例每一个浏览器对于定时器的等待时间都有一个最小的数值，如果设置的等待时间小于这个数值，按照最小时间来执行123456var n=0;window.setTimeout(function()&#123; n++; console.log(n)&#125;,0)console.log(n) //这个依旧先执行 我们定时器设置的等待时间不一定就是最后执行的时间，如果定时器之后还有其它的事情正在处理中，不管定时器的时间有没有到，都是不会执行定时器。 12345678910var n=0;window.setTimeout(function()&#123; n++; console.log(n) //不执行&#125;,0)console.log(n) //首先执行，0while(1)&#123; //死循环 n++&#125;console.log(n) //不执行 定时器之间，快的先执行 123456789101112131415 var n=0;window.setTimeout(function() &#123; console.log('a')&#125;, 20);setTimeout(function() &#123; console.log('b')&#125;, 5);console.log('c')for(var i=0;i&lt;1000;i++)&#123;&#125;console.log('d')//执行顺序 c - d - b -a]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[this]]></title>
+    <url>%2F2017%2F11%2F23%2Fthis%2F</url>
+    <content type="text"><![CDATA[This this是谁与函数在哪里定义的，在哪里执行的没有任何关系。 函数执行，首先看函数名前面是否有”.”，如果有”.”前面是谁this就是谁，如果没有this就是window 1234567891011121314151617function fn() &#123; console.log(this)&#125;fn();// windowvar obj = &#123; fn: fn &#125;obj.fn() //objfunction sum() &#123; fn()&#125;sum(); //window// 执行this的函数是fn，所以我们只需要观察fn前面是否有"."var oo = &#123; sum: function () &#123; fn() &#125;&#125;oo.sum(); //window 给一个元素的某个事件绑定方法，当事件触发的时候，执行对应的方法，方法中的this是当前的元素 1234document.getElementById('div').onclick=fn; //#divdocument.getElementById('div').onclick=function()&#123; fn() //window&#125; #call和apply call和apply强制改变this的指向,以上所有的this情况在遇到call/apply的时候都不好使,都已强制改变的为主 1obj.fn.call(1);//this-&gt;1 一般情况下,我们执行call方法第一个传递的参数值是谁,那么fn中的this就是谁 [在非严格模式下] 第一个参数没有传递值、传递的是null、传递的是undefined fn中的this都是window [严格模式下] 第一个参数传递的是谁this就是谁,传递null/undefined,fn中的this都是对应的null/undefined,不传递值默认也是undefined综上所述，严格模式下的this相对于非严格模式下的this主要区别在于：对于js代码中没有写执行主体的情况下，非严格模式下默认都是window执行的，所以this指向的是window,但是在严格模式下，没有写就是没有执行主体，this指向的是undefined.123456789'use strict'var obj = &#123;&#125;function fn() &#123; console.log(this)&#125; fn.call() //undefined fn.call(undefined) //undefinedfn.call(null) // null]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[借用方法]]></title>
+    <url>%2F2017%2F11%2F23%2Fjieyong%2F</url>
+    <content type="text"><![CDATA[借用原型上的方法12345678910111213141516171819202122232425262728// 1、使用原生slice方法 var a=[1,2,3] a.slice()// slice实现机制如下 Array.prototype.slice = function () &#123; var arr = [] for (var i = 0; i &lt; this.length; i++) &#123; arr[arr.length] = this[i] &#125; return arr &#125;//可以看出，实际是从原型链上去寻找slice并让他执行，内部机制通过this去操作调用者//2、手写一个函数将类数组转为数组 function listtoArray() &#123; var arr = [] for (var i = 0; i &lt; arguments.length; i++) &#123; arr[arr.length] = arguments[i] &#125; return arr &#125; listtoArray(a) //3、比较两者可以看出，区别就在于原生的slice方法中，需要一个数组去调用， //内部用this去实现操作。而现在的做法是将数组当作参数传入。我们只需 //将原生方法中的this改为arguments即可 function listtoArray()&#123; return Array.prototype.slice.call(arguments) &#125; 将类数组转为数组1234567891011121314var olis=document.getElementsByTagName('div');var ary=Array.prototype.slice.call(olis)//问题：在ie6-8下，不支持借用数组的slice实现将元素集合的类数组转为数组，但是arguments不存在这个兼容问题//以下是兼容方法 function listToArray(likeAry) &#123; if (flag) &#123; return Array.prototype.slice.call(likeAry, 0); &#125; var ary = []; for (var i = 0; i &lt; likeAry.length; i++) &#123; ary[ary.length] = likeAry[i]; &#125; return ary; &#125; 扩展123456789101112131415 //从某一处开始克隆 function fn()&#123; var aru=[].slice.call(arguments,1)//从第二项开始克隆 &#125; //求平均数实例function avgFn() &#123; Array.prototype.sort.call(arguments, function (a, b) &#123; return a - b &#125;) Array.prototype.shift.call(arguments) Array.prototype.pop.call(arguments) return (eval([].join.call(arguments, '+')) / arguments.length).toFixed(2)&#125;var res = avgFn(3.4, 5.5, 5.4)]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[call]]></title>
+    <url>%2F2017%2F11%2F22%2Fcall%2F</url>
+    <content type="text"><![CDATA[call的作用 改变函数中this的指向 call方法实现机制 一个函数调用call方法，实际上是从Function的原型链上找到call这个方法，并让call()执行。 1234function call(data)&#123; 1、让this(这个this指的是调用者)这个函数中的this(这个this指的是调用者的this)关键字变为data 2、让this方法(调用者)执行&#125; 案例1234567891011121314 function fn1() &#123; console.log(1) //1 &#125; function fn2() &#123; console.log(2) //2 &#125; fn1.call(fn2) //首先fn1通过原型链找到Function.prototype上的call方法，让call方法执行 //执行的时候让fn1的this指向了fn2,然后再让fn1执行 fn1.call.call(fn2) //首先fn1通过原型链找到Function.prototype上的call方法 //让call方法通过原型找到Function原型上的call(因为call本身的值也是一个函数，所以同样可以找到Function.protoype),// 在第二次找到call的时候让方法执行，方法中的this是fn1.call,首先让这个方法中的this变为fn2,然后再让fn1.call执行 call参数 call中的第一个参数是改变的this指向，后面的才是传递的参数 123456var obj = &#123;&#125; function fn(a, b) &#123; console.log(a + b) //3 console.log(this) // obj &#125; fn.call(obj, 1, 2) 严格模式和非严格 严格模式下，写什么指向什么，非严格模式，都指向window 123456789'use strict'var obj = &#123;&#125;function fn() &#123; console.log(this)&#125; fn.call() //undefined fn.call(undefined) //undefinedfn.call(null) // null apply 和call几乎一样,只不过传递参数的时候放进一个数组 123456var obj = &#123;&#125;function fn(a, b) &#123; console.log(a + b) console.log(this)&#125;fn.apply(obj, [1, 2]) bind bind在ie6-8下不兼容,和call,apply类似都是用来改变this关键字。区别是只是改变this指向，并且传递了参数，但是此时并没有把fn这个函数执行，但是会有一个返回值可以执行1234567var obj = &#123;&#125;function fn(a, b) &#123; console.log(a + b) console.log(this)&#125;var a = fn.bind(obj, 1, 2)a()]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[内置的dom操作属性和方法]]></title>
+    <url>%2F2017%2F11%2F22%2Fdom%2F</url>
+    <content type="text"><![CDATA[不存在兼容问题 getElementById getElementByTagName childNodes parentNode nodeType nodeName firstChild lastChild previousSibling nextSibling appendChild insertBefore cloneNode(true 兼容 children(谷歌下是子元素节点，ie8得出元素+非法标签+注释，ie7元素+注释) 以下属性ie6-8下不存在 getElementsByClassName firstElementChild lastElementChild previousElementSibling nextElementSibling 以下方法ie6-7不支持 getAttribute setAttribute removeAttribute]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[js-box]]></title>
+    <url>%2F2017%2F11%2F22%2Fjs-box%2F</url>
+    <content type="text"><![CDATA[js盒模型 通过js中提供的一系列的方法和属性获取页面中元素的样式信息值 client1、clientWidth/clientHeight 如果元素设置了height属性，那么它的clientHeight=height+padding-top+padding-bottom,与真实内容无关（真实内容即填充的元素）。如果没有设置，那这个height就是真实的高度。 2、clientLeft/clientTop 左边框宽度/上边框宽度 即border-left/border-top offset1、offsetWidth/offsetHeight 高度+上下填充+上下边框。实际上这个值也可以写成clientHeight+上下边框 2、offsetLeft/offsetTop 当前元素外边框距离父元素内边框的偏移量 scroll1、scrollHeight/scrollWidth 它和clientWidth唯一的区别是，有内容溢出的时候，clientHeight和设置的height有关，而scrollHeight只和真实的高度有关，与设置的height无关。注意：这个数值是约等于的。1、同一个浏览器overflow:hodden不同2、不同的浏览器获取的结果不同 2、scrollTop/scrollLeft关于js盒子模型属性取值的问题 通过这些属性获取的结果永远不可能出现小数，浏览器获取结果的时候，在原来真实结果的基础上进行四舍五入。 关于操作浏览器本身的盒子模型 clientWidth/clientHeight是当前浏览器可视窗口的宽度和高度scrollWidth/scrollHeight是当前页面的真实宽度和高度（所有屏加起来）目前测得需要兼容的是scorllTop，在火狐和ie6-8下用document,在谷歌下用body但是是一个约等于的数值。为了兼容，所有操作浏览器的盒子模型都要写两套。1234567function win(attr, value) &#123; if(typeof value === "undefined") &#123; return document.documentElement[attr] || document.body[attr]; &#125; document.documentElement[attr] = value; document.body[attr] = value;&#125;]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2017%2F11%2F13%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[websocket]]></title>
+    <url>%2F2017%2F10%2F22%2Fwebsocket%2F</url>
+    <content type="text"><![CDATA[first1234567891011121314151617181920212223242526272829303132333435&lt;!DOCTYPE html&gt;&lt;html lang="en"&gt;&lt;head&gt; &lt;meta charset="UTF-8"&gt; &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt; &lt;meta http-equiv="X-UA-Compatible" content="ie=edge"&gt; &lt;title&gt;Document&lt;/title&gt;&lt;/head&gt;&lt;body&gt; &lt;input type="text" id="sendTxt"&gt; &lt;button id="sendBtn"&gt;发送&lt;/button&gt; &lt;div id="recv"&gt;&lt;/div&gt; &lt;script&gt; var websocket = new WebSocket("ws://echo.websocket.org/") websocket.onopen = function () &#123; console.log('websocket已经连接') document.getElementById('recv').innerHTML = 'websocket已经连接' &#125; websocket.onclose = function () &#123; console.log('websocket关闭') &#125; websocket.onmessage = function (e) &#123; console.log(e); document.getElementById('recv').innerHTML = e.data; &#125; document.getElementById('sendBtn').onclick = function () &#123; var txt = document.getElementById('sendTxt').value; websocket.send(txt) &#125; &lt;/script&gt;&lt;/body&gt;&lt;/html&gt; 一打开页面就显示’websocket已经连接’ 当输入文本框发送的时候，服务端返回的数据中，其中的data是我们发送的数据 sechttps://github.com/sitegui/nodejs-websocket]]></content>
+      <tags>
+        <tag>websocket</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Node.js中的path模块]]></title>
+    <url>%2F2017%2F10%2F20%2Fnode-path%2F</url>
+    <content type="text"><![CDATA[join该方法将多个参数值字符串结合成一个路径字符串，使用方式如下:1path.join([path1],[path2],[...]) 在该方法中，使用一个或者多个字符串值参数，该参数返回将这些字符串值参数结合而成的路径。123let joinPath=path.join(__dirname,'a','b','c');console.log(joinPath) // D:\nodePro\fileTest\a\b\c__dirname变量值代表程序运行的根目录。]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[webpackdemo]]></title>
+    <url>%2F2017%2F10%2F19%2Fwebpackdemo%2F</url>
+    <content type="text"><![CDATA[基本用法a.html 123... &lt;script src=&quot;index.js&quot;&gt;&lt;/script&gt;.. people.js 1module.exports=&apos;Hello EveryBody&apos; app.js 1alert(require(&apos;./people&apos;)) //路径必须./即使是当前目录 执行命令webpack app.js index.js即生成index.js,打开index.html弹出&#39;Hello EveryBody&#39; 执行命令的时候 –watch 即可监听，app.js有变化自动打包 运用第三方库cnpm install style-loader css-loader --saveindex.html1&lt;script src=&apos;dist/index.js&apos;&gt;&lt;/script&gt; style.css123body&#123; background:red&#125; app.js require(&quot;!style-loader!css-loader!./style.css&quot;) 配置文件webpack.config.js 123456789101112131415module.exports=&#123; // 入口文件 entry:'./app.js', // 出口文件 output:&#123; path:__dirname+'/dist', filename:'index.js' &#125;, // 需要依赖的插件或者是装载器 module:&#123; loaders:[ &#123;test: /\.css$/,loader:"style-loader!css-loader"&#125; ] &#125;&#125; app.js 1require(&apos;./style.css&apos;) webpack即可webpack 开发环境下编译（打包）webpack -p 生产环境下编译（压缩）webpack -w 监听文件改动（自动编译）webpack -d 开启(生成)source mapwebpack -wdp 自定义配置文件webpack –config config.js package.json123&quot;scripts&quot;: &#123; &quot;build&quot;:&quot;webpack&quot;&#125;, 即可用 npm run build来代替执行webpack 搭建服务器运行cnpm install webpack-dev-server -g --save-dev package.json 加入start字段1234&quot;scripts&quot;: &#123; &quot;start&quot;: &quot;webpack-dev-server --entry ./app.js --output-filename ./dist/index.js&quot;, &quot;build&quot;:&quot;webpack&quot;&#125;, npm start 自动开启8080端口，自动监听无需刷新。这样就不需要执行webpack命令，或者说不需要在webpack.config.js中配置入口和出口，但是指定的加载器模块仍然要写上。 es6cnpm install babel-core babel-loader babel-preset-es2015 –save-dev 1234567891011121314151617181920module.exports = &#123; // 需要依赖的插件或者是装载器 module: &#123; loaders: [&#123; test: /\.css$/, loader: "style-loader!css-loader" &#125;, &#123; test: /\.js$/, loader: "babel-loader", exclude: /node_modules/, query: &#123; presets: ["es2015"] &#125; &#125; ] &#125;&#125; 1234//另一种方式，去掉query,建立.babelrc&#123; "presets":['es2015']&#125; Demo212345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879const path = require('path')const HtmlWebpackPlugin = require('html-webpack-plugin')const CleanWebpackPlugin = require('clean-webpack-plugin')const ExtractTextPlugin = require('extract-text-webpack-plugin')const webpack=require('webpack')module.exports = &#123; entry: &#123; vendor:['jquery','./src/js/common.js'], // 多页面有几个页面就有几个入口,单页面只有一个入口 index: './src/js/index.js', cart: './src/js/cart.js' &#125;, output: &#123; path: path.join(__dirname, './dist'), //出口必须是绝对路径 filename: 'js/[name].js', publicPath: '' &#125;, module: &#123; rules: [&#123; test: /\.css$/, include: path.join(__dirname, 'src'), exclude: /node_modules/, // 这种方法是抽取成单独的css文件 // use: ExtractTextPlugin.extract(&#123; // fallback: 'style-loader', // use: 'css-loader' // &#125;) // 这种方法是行内 loader:'style-loader!css-loader' &#125;,&#123; test: /\.js$/, include: path.join(__dirname, 'src'), exclude: /node_modules/, loader:'babel-loader' &#125;] &#125;, plugins: [ // 打包后清除之前的文件 new CleanWebpackPlugin(['./dist'], &#123; root: path.join(__dirname, ''), verbose: true, dry: false &#125;), // 单页面配置几个，多页面有几个页面new几个 new HtmlWebpackPlugin(&#123; filename: 'cart.html', template: './src/cart.html', chunks: ['cart','vendor'] &#125;), new HtmlWebpackPlugin(&#123; filename: 'index.html', template: './src/index.html', chunks: ['index','vendor'], //指定引用的块，指定以后只引入index相关的css,js，不写这个打包后的htmml引入所有的index,css等。 minify:&#123; removeComments:true, collapseWhitespace:true &#125; &#125;), new webpack.ProvidePlugin(&#123; $:'jquery', jQuery:'jquery', 'window.jQuery':'jquery' &#125;), new ExtractTextPlugin('[name].css'), new webpack.optimize.CommonsChunkPlugin(&#123; name:'vendor', chunks:['index','cart','vendor'], minChunks:3 &#125;), // 压缩js new webpack.optimize.UglifyJsPlugin(&#123; compress:&#123; warnings:true &#125; &#125;) ], // devtool: '#source-map'&#125; es6 npm install --save babel-core babel-loader babel-preset-env 在配置文件同级目录下建一个.babelrc,写入 { &quot;presets&quot;: [&quot;env&quot; ]} 123456&#123; test: /\.js$/, include: path.join(__dirname, 'src'), exclude: /node_modules/, loader:'babel-loader'&#125;]]></content>
+      <tags>
+        <tag>webpack</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[hexo-change]]></title>
+    <url>%2F2017%2F10%2F19%2Fhexo-change%2F</url>
+    <content type="text"><![CDATA[将原先配置好并生成的hexo目录拷贝到新的电脑，只需拷贝以下目录：12345_config.ymlpackage.jsonscaffolds/source/themes/ 将这些目录放到一个目录下，如：hexo／ 安装hexo1npm install -g hexo 安装好之后，进入hexo/目录模块安装1234npm installnpm install hexo-deployer-git --savenpm install hexo-generator-feed --savenpm install hexo-generator-sitemap --save 部署12hexo ghexo deploy]]></content>
+      <categories>
+        <category>备忘录</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[gulp-demo]]></title>
+    <url>%2F2017%2F10%2F19%2Fgulp-demo%2F</url>
+    <content type="text"><![CDATA[安装步骤 首先确认设备是否拥有Node环境 通过npm install -g gulp安装全局 初始化package.json 在项目文件中安装gulp 基本用法1234567891011121314151617// 处理任务let gulp =require('gulp')/* gulp.task 定义任务 gulp.src 找到需要执行任务的文件 gulp.dest 执行任务的文件的去处 gulp.watch 观察文件是否发生变化*/gulp.task('message',function()&#123; return console.log('Gulp is running........')&#125;)// 命令行输入gulp message即执行gulp.task('default',function()&#123; return console.log('这是默认任务.')&#125;)// 命令行输入gulp即执行 拷贝文件1234gulp.task('mycopy',function()&#123; gulp.src('src/*.html') .pipe(gulp.dest('dist'))&#125;) 执行gulp mycopy将自动创建dist文件夹，并将src下的所有html拷贝到文件夹内 压缩图片12345678//安装并引入插件let imagemin=require('gulp-imagemin')gulp.task('myimage',function()&#123; gulp.src('images/*') .pipe(imagemin()) .pipe(gulp.dest('dist/images'))&#125;) 压缩js文件123456let uglify=require('gulp-uglify')gulp.task('minify',function()&#123; gulp.src('src/js/*.js') .pipe(uglify()) .pipe(gulp.dest('dist/js'))&#125;) sass转换为cess1234567let sass=require('gulp-sass')gulp.task('mycss',function()&#123; gulp.src('src/sass/*.scss') .pipe(sass().on('error',sass.logError)) .pipe(gulp.dest('dist/css'))&#125;) 执行多个任务1gulp.task('default',['message','mycss','minify','myimage','mycopy']) 合并代码12345678gulp.task('scripts',function()&#123; gulp.src('src/js/*.js') .pipe(concat('main.js')) .pipe(uglify()) .pipe(gulp.dest('dist/js'))&#125;)gulp.task('default',['message','mycss','myimage','mycopy','scripts']) 监听任务12345gulp.task('watch',function()&#123; gulp.watch('src/js/*.js',['scripts']); gulp.watch('src/sass/*.scss',['mycss']);&#125;)//执行 gulp watch]]></content>
+      <categories>
+        <category>笔记本</category>
+      </categories>
+      <tags>
+        <tag>gulp</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[what-token]]></title>
+    <url>%2F2017%2F10%2F16%2Fwhat-token%2F</url>
+    <content type="text"><![CDATA[基于 Token 的身份验证方法使用基于 Token 的身份验证方法，在服务端不需要存储用户的登录记录。大概的流程是这样的： 客户端使用用户名跟密码请求登录 服务端收到请求，去验证用户名与密码 验证成功后，服务端会签发一个 Token，再把这个 Token 发送给客户端 客户端收到 Token 以后可以把它存储起来，比如放在 Cookie 里或者 Local Storage 里 客户端每次向服务端请求资源的时候需要带着服务端签发的 Token 服务端收到请求，然后去验证客户端请求里面带着的 Token，如果验证成功，就向客户端返回请求的数据 JWT实施 Token 验证的方法挺多的，还有一些标准方法，比如 JWT，读作：jot ，表示：JSON Web Tokens 。JWT 标准的 Token 有三个部分： header payload signature这三个部分使用Base64编码以后连接，中间用点分隔开，所以真正的 Token 看起来像这样： 1eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidXV1dXV1dXV1dXV1IiwiZXhwIjoxNTA4NzMxNjA0LCJpYXQiOjE1MDgxMjY4MDR9.d1gjsaqQIQZeii7poPmCoHXtUfdBo3WUCD1jxYn-AhY headerheader 部分主要是两部分内容，一个是 Token 的类型，另一个是使用的算法，比如下面类型就是 JWT，使用的算法是 HS256。1&#123;alg: &quot;HS256&quot;, typ: &quot;JWT&quot;&#125; 上面的内容要用 Base64 的形式编码一下，所以就变成这样： 1eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9 PayloadPayload 里面是 Token 的具体内容，这些内容里面有一些是标准字段，你也可以添加其它需要的内容。下面是标准字段： iss：Issuer，发行者 sub：Subject，主题 aud：Audience，观众 exp：Expiration time，过期时间 nbf：Not before iat：Issued at，发行时间 jti：JWT ID 比如下面这个 Payload ，用到了 iat 发行时间，还有 exp 过期时间。另外还有两个自定义的字段，一个是 name ，还有一个是 age 。 1&#123;name: &quot;uuuu&quot;, age: 12, exp: 1508739578, iat: 1508134778&#125; 使用 Base64 编码以后就变成了这个样子： 1eyJpc3MiOiJuaW5naGFvLm5ldCIsImV4cCI6IjE0Mzg5NTU0NDUiLCJuYW1lIjoid2FuZ2hhbyIsImFkbWluIjp0cnVlfQ 因为后台下发给我们的是通过Base64编码的，那么我们如何获取？12const payload = JSON.parse(window.atob(token.split('.')[1]));//&#123;name: "uuuu", age: 12, exp: 1508739578, iat: 1508134778&#125; SignatureJWT 的最后一部分是 Signature ，这部分内容有三个部分，先是用 Base64 编码的 header.payload ，再用加密算法加密一下，加密的时候要放进去一个 Secret ，这个相当于是一个密码，这个密码秘密地存储在服务端。 header payload secret 12var encodedString = base64UrlEncode(header) + "." + base64UrlEncode(payload); HMACSHA256(encodedString, 'secret'); 处理完成以后看起来像这样： 1SwyHTEx_RQppr97g4J5lKXtabJecpejuef8AqKYMAJc 最后这个在服务端生成并且要发送给客户端的 Token 看起来像这样： 1eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJuaW5naGFvLm5ldCIsImV4cCI6IjE0Mzg5NTU0NDUiLCJuYW1lIjoid2FuZ2hhbyIsImFkbWluIjp0cnVlfQ.SwyHTEx_RQppr97g4J5lKXtabJecpejuef8AqKYMAJc 客户端收到这个 Token 以后把它存储下来，下回向服务端发送请求的时候就带着这个 Token 。服务端收到这个 Token ，然后进行验证，通过以后就会返回给客户端想要的资源。]]></content>
+      <categories>
+        <category>尚在研究</category>
+      </categories>
+      <tags>
+        <tag>token</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[token]]></title>
+    <url>%2F2017%2F10%2F16%2Ftoken%2F</url>
+    <content type="text"><![CDATA[首次发起请求reg.vue 注册页面，注册时触发actions,把用户的参数带过去 123456 user: &#123; username: '', password: '', repassword: '', &#125;this.$store.dispatch('UserReg', this.user); actions.js 带着参数调用注册接口.如果注册成功，触发mutations，并跳转到admin页面 12345678910111213141516171819202122import Vue from 'vue'import api from '../api'import router from '../router'export default &#123;// 后台注册 UserReg(&#123;commit&#125;,data)&#123; api.localReg(data) // return axios.post('/api/reg',data) .then((&#123;data&#125;)=&gt;&#123; if(data.code==200)&#123; commit('USER_REG',data.token) router.replace(&#123;path:'/admin'&#125;) &#125;else&#123; // 上一个catch处理了MongoError alert(data.message) &#125; &#125;) .catch((error)=&gt;&#123; // 处理的是上一个if的错误 alert(error.toString()) &#125;) &#125;, mutations.js 对token做存储和本地缓存 1234567import &#123;USER_SIGNIN,USER_SIGNOUT,USER_REG&#125; from './types'export default &#123; [USER_REG](state,token)&#123; localStorage.setItem('jwt',token); state.token = token; &#125;,&#125; 后台首次处理router.js 接收到注册请求，试图将用户信息存进mongodb中。如果创建成功，就创建token并下发给前端 12345678910111213141516171819202122232425262728293031323334353637const express = require('express')const router = express.Router()const User = require('../models').Userconst createToken = require('../middleware/createToken')// 注册router.post('/reg', function (req, res) &#123; let username = req.body.username let password = req.body.password let user = &#123; username, password &#125; User.create(user) .then(() =&gt; &#123; res.send(&#123; // 创建用户成功 code: 200, token: createToken(username) &#125;) &#125;) .catch(err =&gt; &#123; // 操作数据库的时候发生错误 if (err.message.match('E11000 duplicate key')) &#123; return res.json(&#123; code: -200, message: '用户名重复' &#125;) &#125; // 服务器发生错误（例如status:） return res.json(&#123; code: -200, message: err.toString() &#125;) &#125;)&#125;)module.exports = router; createToken.js12345678910var jwt = require('jsonwebtoken')module.exports = function (name) &#123; var expiry = new Date(); expiry.setDate(expiry.getDate() + 7); //有效期设置为七天 const token = jwt.sign(&#123; name: name, exp: parseInt(expiry.getTime() / 1000) //除以1000以后表示的是秒数 &#125;, process.env.JWT_SECRET) return token;&#125; 发给前台后，是一串base64编译的 1const payload = JSON.parse(window.atob(token.split('.')[1])); dovenv 用文件管理起来，node有一个dotenv的模块，可以将这个密钥设置成环境变量。在根目录下创建一个.env的文件，并设置密码： 1JWT_SECRET=hello 同时还要注意，在gitignore 中增加这个文件的忽略，不必上传到git上。然后我们安装dotenv模块： 在app.js最顶端引用： 12require('dotenv').load();var express = require('express'); 验证api.js 123456789101112131415161718axios.defaults.headers.post['Content-Type'] = 'application/json'const instance = axios.create(); const front_instance = axios.create(); if(localStorage.getItem('jwt'))&#123; /* localStorage.getItem('jwt')获取的是字符串 Bearer token(通过Authorization头部字段发送到服务端便于验证)的格式：Bearer XXXXXXXXXX */ // 需要权限的axios 的Authorization 头为 bearer加上 token instance.defaults.headers.common['Authorization'] = "Bearer "+localStorage.getItem('jwt').replace(/(^\")|(\"$)/g,'') &#125; addClassify(params)&#123; return instance.post('/api/classify/create',params); &#125;, 后台验证12345678910111213141516171819202122// 添加分类const checkToken = require('../middleware/checkToken')router.post('/classify/create', checkToken, (req, res) =&gt; &#123; new Classify(&#123; name: req.body.className &#125;).save() .then(() =&gt; &#123; res.send(&#123; code: 200, message: '创建成功' &#125;) &#125;) .catch(err =&gt; &#123; res.send(&#123; code: -200, message: err.toString() &#125;) &#125;)&#125;) checkToken.js123456789101112131415161718// 验证token中间件var jwt = require('jsonwebtoken')module.exports = function (req, res, next) &#123; if (req.headers['authorization']) &#123; // 抽取出token var token = req.headers['authorization'].split(' ')[1] var decoded = jwt.decode(token, process.env.JWT_SECRET) // 如果过期了就重新登录 // 验证token也需要优化 if (token &amp;&amp; decoded.exp &lt;= Date.now() / 1000) &#123; return res.send(&#123; code: 401, message: "授权已经过期，请重新登陆" &#125;) &#125; &#125; next();&#125;]]></content>
+      <categories>
+        <category>尚在研究</category>
+      </categories>
+      <tags>
+        <tag>vue.js</tag>
+        <tag>token</tag>
+        <tag>vuex</tag>
+        <tag>ndoe.js</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[es6,es7对数据返回的处理]]></title>
+    <url>%2F2017%2F10%2F15%2Fes6-data%2F</url>
+    <content type="text"><![CDATA[api返回的数据一般都是一个数组，数组中包含了多个对象。如何处理返回一个数组，取数组中每一项的某个值 12345api.getBooks(this.bookInfo.id) .then(data =&gt; &#123; return data.map(item =&gt; item.book ) &#125;) 通过便利重新对返回的数据重新组织,可以获取我们想要的数据而不是全部并且自定义key,value123456789101112131415161718192021processDoubanData(moviesDouban) &#123; var movies = []; for (var idx in moviesDouban.subjects) &#123; var subject = moviesDouban.subjects[idx]; var title = subject.title; if (title.length &gt;= 6) &#123; title = title.substring(0, 6) + '...' &#125; var temp = &#123; title, average: subject.rating.average, coverageUrl: subject.images.large, movieId: subject.id &#125; movies.push(temp) &#125; this.setData(&#123; movies &#125;) console.log(this.data.movies)&#125;]]></content>
+      <categories>
+        <category>笔记本</category>
+      </categories>
+      <tags>
+        <tag>es6</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[git命令小结]]></title>
+    <url>%2F2017%2F10%2F14%2Fgit%2F</url>
+    <content type="text"><![CDATA[列出远程所有分支 1git branch -a 将远程的dev分支搞到本地的dev分支并切换过去(用于在本地切换远程分支) 1git checkout -b dev origin/dev git pull 将远程存储库中的更改合并到当前分支中。在默认模式下，git pull是git fetch后跟git merge FETCH_HEAD的缩写。 1git pull origin [远程]:[本地] 在本地切换到远程的master分支，然后执行以下命令将null分支合并到master.如果没问题再push到远程 1git merge origin/null]]></content>
+      <categories>
+        <category>笔记本</category>
+      </categories>
+      <tags>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[linux下部署node项目]]></title>
+    <url>%2F2017%2F10%2F14%2Fnginx-node-mongodb-vue%2F</url>
+    <content type="text"><![CDATA[前言没有 部署node环境想要运行node，自然要在服务器上部署node环境 阿里云上有篇教程讲解部署Node.js项目（CentOS） 如果根据以上教程成功搞定，node环境已经安装完成，npm包管理器也有了。由于npm有些资源被屏蔽或者是国外资源的原因，经常会导致用npm安装依赖包的时候失败，所有我还需要npm的国内镜像—cnpm。 xshell 敲入命令1npm install -g cnpm --registry=http://registry.npm.taobao.org 完成之后，我们就可以用cnpm代替npm来安装依赖包了。 另外，如果是用nvm来管理node，需要每次登陆服务器首先nvm use [node版本号]才能使用node和npm命令 上传代码到服务器将node代码上传到服务器的/blog(自己指定)目录下，解构如下 其中app.js中指定监听的端口 1234app.set('port', process.env.PORT || 3389);app.listen(app.get('port'), function() &#123; console.log('Express server listening on port ' + app.get('port'));&#125;); 利用xshell在此目录下运行 node app.js即可启动此项目，前提3389这个接口是开放的 但是如果用这种方法，我们不能退出，因此要用pm2来管理我们的进程 pm2管理进程全局安装pm2 cnpm install pm2 -g 运行 pm2 start app.js 停止 pm2 stop app.js]]></content>
+      <categories>
+        <category>备忘录</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>node.js</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[linux下mongodb的安装配置]]></title>
+    <url>%2F2017%2F10%2F14%2Fmongodb-linux%2F</url>
+    <content type="text"><![CDATA[前言本文将总结如何在linux系统下安装并运行mongb服务器操作系统:CentOS 6.8 64位 下载上传解压三部曲首先去官网将mongodb下载到自己的本地(linux版本)通过winScp上传到服务器任意目录打开xshell到此目录下，敲入以下命令进行解压1tar xvf mongodb-linux-x86_64-amazon-3.4.9.tgz 将解压后的文件重命名并移动到/user/local目录下1mv mongodb-linux-x86_64-amazon-3.4.9 /usr/local/mongodb 1cd /usr/local/mongodb/bin/ 1ll bin下的mongod就是MongoDB的服务端进程，mongo就是其客户端，其它的命令用于MongoDB的其它用途如MongoDB文件导出等 启动启动前，先指定mongodb的data目录，如果没有就创建一个：1cd /usr/local/mongodb 1mkdir data 1/usr/local/mongodb/bin/mongod --dbpath=/usr/local/mongodb/data/ --logpath=/usr/local/mongodb/data/mongodb.log --logappend&amp; 启动成功后，可查看是否启动成功了，默认端口号是27017，当然在启动时也可以指定未使用的其它端口.1netstat -nutlp 最后，将客户端mogo文件在/bin下软链接，方便随处执行： 1ln -s /usr/local/mongodb/bin/mongo /bin/mongo （完蛋）]]></content>
+      <categories>
+        <category>备忘录</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>mongodb</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[线上搭建nginx服务器]]></title>
+    <url>%2F2017%2F10%2F14%2Fnginx%2F</url>
+    <content type="text"><![CDATA[线上配置第一个vue项目123456789101112131415http &#123; ... server &#123; listen 80; server_name firstServer; location / &#123; root /usr; #指向项目所在的根目录 index index.html index.htm; try_files $uri $uri/ /index.html; #解决history模式下刷新引起的404 &#125; location /api/ &#123; # 反向代理解决跨域 proxy_pass http://api.zhuishushenqi.com/; &#125; ... &#125; 配置到这里，将vue项目打包后丢到服务器的/usr目录下，访问自己的公网ip即可。 配置node.js+vue项目在成功配置第一个项目后，想要将自己本地的vue+node项目上线。因为上一个项目已经占用了公网ip（默认监听80端口）。只能开放另一个端口来配置服务。 在和上一个server同级下再配置一份，如下 123456789101112server &#123; listen 66; server_name blogServer; location / &#123; root /blog; index index.html index.htm; try_files $uri $uri/ /index.html; &#125; location /api &#123; # 访问api时指向3389端口 proxy_pass http://47.95.207.4:3389/api; &#125; ... 值得一说的是，这里我将api指向了3389端口，是开放的另一个端口。即node.js监听的端口,如下。 1234app.set('port', process.env.PORT || 3389);app.listen(app.get('port'), function() &#123; console.log('Express server listening on port ' + app.get('port'));&#125;); 注意，我们自己开放的端口需要在阿里云后台进行安全组配置此时，访问项目只需公网ip:66 （完蛋）]]></content>
+      <categories>
+        <category>备忘录</category>
+      </categories>
+      <tags>
+        <tag>node.js</tag>
+        <tag>nginx</tag>
+        <tag>vue.js</tag>
+      </tags>
+  </entry>
+</search>
