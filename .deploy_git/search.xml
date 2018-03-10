@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[柯里化函数]]></title>
-    <url>%2F2017%2F11%2F25%2Fkelihua%2F</url>
-    <content type="text"><![CDATA[1234567891011121314151617181920212223242526272829303132333435363738394041424344454647var obj = &#123; name: 'nullwu'&#125;function fn(a, e) &#123; console.log(a, e)&#125;// 给定时器绑定一个方法，当定时器到达让方法执行，并且让fn中的this改为obj// 1、用call，但是需要包裹一个匿名函数// setTimeout(function()&#123;// fn.call(obj)// &#125;,1000)// // 2、直接用bind,原理是首先执行bind这个方法，将返回值和定时器绑定，到时间执行这个返回值// setTimeout(fn.bind(obj), 1000)// 3、自定义bind来实现// setTimeout(bind(fn,obj,100,200),1000)function bind(callback, context) &#123; var outerArg = Array.prototype.slice.call(arguments, 2) //获取除了前两个以外的参数(传的参数) context = context || window // 点击以后会这行这个小函数，所以实际上事件对象会在这里出现 return function (e) &#123; var innerArg = Array.prototype.slice.call(arguments, 0) callback.apply(context, outerArg.concat(innerArg)) &#125;&#125;// document.body.onclick=bind(fn,obj,100,200)//默认的把事件对象也预先处理Function.prototype.mybind = function (context) &#123; // context是要把this改为谁 var _this = this; // 获取剩余的参数 var outerArg = Array.prototype.slice.call(arguments, 1) if ('bind' in Function.prototype) &#123; // 把参数传给原生的bind return this.bind.apply(this, [context].concat(outerArg)) //this是调用者 &#125; return function () &#123; // 获取事件对象 var innerArg = Array.prototype.slice.call(arguments, 0) // 兼容ie6-8的事件对象 innerArg.length === 0 ? innerArg[innerArg.length] = window.event : null; // 将剩余参数和事件对象拼接 var arg = outerArg.concat(innerArg) _this.apply(context, arg) &#125;&#125;document.body.onclick = fn.mybind(obj, 100)]]></content>
+    <title><![CDATA[sanba]]></title>
+    <url>%2F2018%2F03%2F10%2Fsanba%2F</url>
+    <content type="text"></content>
   </entry>
   <entry>
     <title></title>
-    <url>%2F2017%2F11%2F25%2Ftest%2F</url>
+    <url>%2F2018%2F03%2F10%2Ftest%2F</url>
     <content type="text"><![CDATA[Document 柯里化函数思想：一个js预处理的思想 var obj = { name: 'nullwu' } function fn(a, e) { console.log(a, e) } // 给定时器绑定一个方法，当定时器到达让方法执行，并且让fn中的this改为obj // 1、用call，但是需要包裹一个匿名函数 // setTimeout(function(){ // fn.call(obj) // },1000) // // 2、直接用bind,原理是首先执行bind这个方法，将返回值和定时器绑定，到时间执行这个返回值 // setTimeout(fn.bind(obj), 1000) // 3、自定义bind来实现 // setTimeout(bind(fn,obj,100,200),1000) function bind(callback, context) { var outerArg = Array.prototype.slice.call(arguments, 2) //获取除了前两个以外的参数(传的参数) context = context || window // 点击以后会这行这个小函数，所以实际上事件对象会在这里出现 return function (e) { var innerArg = Array.prototype.slice.call(arguments, 0) callback.apply(context, outerArg.concat(innerArg)) } } // document.body.onclick=bind(fn,obj,100,200)//默认的把事件对象也预先处理 Function.prototype.mybind = function (context) { // context是要把this改为谁 var _this = this; // 获取剩余的参数 var outerArg = Array.prototype.slice.call(arguments, 1) if ('bind' in Function.prototype) { // 把参数传给原生的bind return this.bind.apply(this, [context].concat(outerArg)) //this是调用者 } return function () { // 获取事件对象 var innerArg = Array.prototype.slice.call(arguments, 0) // 兼容ie6-8的事件对象 innerArg.length === 0 ? innerArg[innerArg.length] = window.event : null; // 将剩余参数和事件对象拼接 var arg = outerArg.concat(innerArg) _this.apply(context, arg) } } document.body.onclick = fn.mybind(obj, 100)]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2018%2F03%2F10%2Fhello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[柯里化函数]]></title>
+    <url>%2F2017%2F11%2F25%2Fkelihua%2F</url>
+    <content type="text"><![CDATA[1234567891011121314151617181920212223242526272829303132333435363738394041424344454647var obj = &#123; name: 'nullwu'&#125;function fn(a, e) &#123; console.log(a, e)&#125;// 给定时器绑定一个方法，当定时器到达让方法执行，并且让fn中的this改为obj// 1、用call，但是需要包裹一个匿名函数// setTimeout(function()&#123;// fn.call(obj)// &#125;,1000)// // 2、直接用bind,原理是首先执行bind这个方法，将返回值和定时器绑定，到时间执行这个返回值// setTimeout(fn.bind(obj), 1000)// 3、自定义bind来实现// setTimeout(bind(fn,obj,100,200),1000)function bind(callback, context) &#123; var outerArg = Array.prototype.slice.call(arguments, 2) //获取除了前两个以外的参数(传的参数) context = context || window // 点击以后会这行这个小函数，所以实际上事件对象会在这里出现 return function (e) &#123; var innerArg = Array.prototype.slice.call(arguments, 0) callback.apply(context, outerArg.concat(innerArg)) &#125;&#125;// document.body.onclick=bind(fn,obj,100,200)//默认的把事件对象也预先处理Function.prototype.mybind = function (context) &#123; // context是要把this改为谁 var _this = this; // 获取剩余的参数 var outerArg = Array.prototype.slice.call(arguments, 1) if ('bind' in Function.prototype) &#123; // 把参数传给原生的bind return this.bind.apply(this, [context].concat(outerArg)) //this是调用者 &#125; return function () &#123; // 获取事件对象 var innerArg = Array.prototype.slice.call(arguments, 0) // 兼容ie6-8的事件对象 innerArg.length === 0 ? innerArg[innerArg.length] = window.event : null; // 将剩余参数和事件对象拼接 var arg = outerArg.concat(innerArg) _this.apply(context, arg) &#125;&#125;document.body.onclick = fn.mybind(obj, 100)]]></content>
   </entry>
   <entry>
     <title><![CDATA[sport]]></title>
@@ -23,7 +33,7 @@
   <entry>
     <title><![CDATA[yibu]]></title>
     <url>%2F2017%2F11%2F23%2Fyibu%2F</url>
-    <content type="text"><![CDATA[同步和异步 在js中异步编程有四种情况：定时器、事件绑定、ajax读取数据可以设置为异步，回调函数。 实例每一个浏览器对于定时器的等待时间都有一个最小的数值，如果设置的等待时间小于这个数值，按照最小时间来执行123456var n=0;window.setTimeout(function()&#123; n++; console.log(n)&#125;,0)console.log(n) //这个依旧先执行 我们定时器设置的等待时间不一定就是最后执行的时间，如果定时器之后还有其它的事情正在处理中，不管定时器的时间有没有到，都是不会执行定时器。 12345678910var n=0;window.setTimeout(function()&#123; n++; console.log(n) //不执行&#125;,0)console.log(n) //首先执行，0while(1)&#123; //死循环 n++&#125;console.log(n) //不执行 定时器之间，快的先执行 123456789101112131415 var n=0;window.setTimeout(function() &#123; console.log('a')&#125;, 20);setTimeout(function() &#123; console.log('b')&#125;, 5);console.log('c')for(var i=0;i&lt;1000;i++)&#123;&#125;console.log('d')//执行顺序 c - d - b -a]]></content>
+    <content type="text"><![CDATA[同步和异步 在js中异步编程有四种情况：定时器、事件绑定、ajax读取数据可以设置为异步，回调函数。 实例 每一个浏览器对于定时器的等待时间都有一个最小的数值，如果设置的等待时间小于这个数值，按照最小时间来执行123456var n=0;window.setTimeout(function()&#123; n++; console.log(n)&#125;,0)console.log(n) //这个依旧先执行 我们定时器设置的等待时间不一定就是最后执行的时间，如果定时器之后还有其它的事情正在处理中，不管定时器的时间有没有到，都是不会执行定时器。 12345678910var n=0;window.setTimeout(function()&#123; n++; console.log(n) //不执行&#125;,0)console.log(n) //首先执行，0while(1)&#123; //死循环 n++&#125;console.log(n) //不执行 定时器之间，快的先执行 123456789101112131415 var n=0;window.setTimeout(function() &#123; console.log('a')&#125;, 20);setTimeout(function() &#123; console.log('b')&#125;, 5);console.log('c')for(var i=0;i&lt;1000;i++)&#123;&#125;console.log('d')//执行顺序 c - d - b -a]]></content>
   </entry>
   <entry>
     <title><![CDATA[this]]></title>
@@ -49,11 +59,6 @@
     <title><![CDATA[js-box]]></title>
     <url>%2F2017%2F11%2F22%2Fjs-box%2F</url>
     <content type="text"><![CDATA[js盒模型 通过js中提供的一系列的方法和属性获取页面中元素的样式信息值 client1、clientWidth/clientHeight 如果元素设置了height属性，那么它的clientHeight=height+padding-top+padding-bottom,与真实内容无关（真实内容即填充的元素）。如果没有设置，那这个height就是真实的高度。 2、clientLeft/clientTop 左边框宽度/上边框宽度 即border-left/border-top offset1、offsetWidth/offsetHeight 高度+上下填充+上下边框。实际上这个值也可以写成clientHeight+上下边框 2、offsetLeft/offsetTop 当前元素外边框距离父元素内边框的偏移量 scroll1、scrollHeight/scrollWidth 它和clientWidth唯一的区别是，有内容溢出的时候，clientHeight和设置的height有关，而scrollHeight只和真实的高度有关，与设置的height无关。注意：这个数值是约等于的。1、同一个浏览器overflow:hodden不同2、不同的浏览器获取的结果不同 2、scrollTop/scrollLeft关于js盒子模型属性取值的问题 通过这些属性获取的结果永远不可能出现小数，浏览器获取结果的时候，在原来真实结果的基础上进行四舍五入。 关于操作浏览器本身的盒子模型 clientWidth/clientHeight是当前浏览器可视窗口的宽度和高度scrollWidth/scrollHeight是当前页面的真实宽度和高度（所有屏加起来）目前测得需要兼容的是scorllTop，在火狐和ie6-8下用document,在谷歌下用body但是是一个约等于的数值。为了兼容，所有操作浏览器的盒子模型都要写两套。1234567function win(attr, value) &#123; if(typeof value === "undefined") &#123; return document.documentElement[attr] || document.body[attr]; &#125; document.documentElement[attr] = value; document.body[attr] = value;&#125;]]></content>
-  </entry>
-  <entry>
-    <title><![CDATA[Hello World]]></title>
-    <url>%2F2017%2F11%2F13%2Fhello-world%2F</url>
-    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
   </entry>
   <entry>
     <title><![CDATA[websocket]]></title>
@@ -165,8 +170,8 @@
         <category>备忘录</category>
       </categories>
       <tags>
-        <tag>linux</tag>
         <tag>mongodb</tag>
+        <tag>linux</tag>
       </tags>
   </entry>
   <entry>

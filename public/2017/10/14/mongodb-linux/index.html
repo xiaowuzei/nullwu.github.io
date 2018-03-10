@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="linux,mongodb," />
+  <meta name="keywords" content="mongodb,linux," />
 
 
 
@@ -82,7 +82,7 @@
 
 
 <meta name="description" content="前言本文将总结如何在linux系统下安装并运行mongb服务器操作系统:CentOS 6.8 64位">
-<meta name="keywords" content="linux,mongodb">
+<meta name="keywords" content="mongodb,linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux下mongodb的安装配置">
 <meta property="og:url" content="http://yoursite.com/2017/10/14/mongodb-linux/index.html">
@@ -91,7 +91,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/images/mongodb01.png">
 <meta property="og:image" content="http://yoursite.com/images/mongodb02.png">
-<meta property="og:updated_time" content="2017-11-23T13:37:59.244Z">
+<meta property="og:updated_time" content="2018-03-10T01:25:56.908Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux下mongodb的安装配置">
 <meta name="twitter:description" content="前言本文将总结如何在linux系统下安装并运行mongb服务器操作系统:CentOS 6.8 64位">
@@ -348,7 +348,7 @@
 
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文将总结如何在linux系统下安装并运行mongb<br>服务器操作系统:CentOS 6.8 64位<br><a id="more"></a></p>
-<h2 id="下载上传解压三部曲"><a href="#下载上传解压三部曲" class="headerlink" title="下载上传解压三部曲"></a>下载上传解压三部曲</h2><p>首先去<a href="http://note.youdao.com/" target="_blank" rel="external">官网</a>将mongodb下载到自己的本地(linux版本)<br>通过winScp上传到服务器任意目录<br>打开xshell到此目录下，敲入以下命令进行解压<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar xvf mongodb-linux-x86_64-amazon-3.4.9.tgz</span><br></pre></td></tr></table></figure></p>
+<h2 id="下载上传解压三部曲"><a href="#下载上传解压三部曲" class="headerlink" title="下载上传解压三部曲"></a>下载上传解压三部曲</h2><p>首先去<a href="http://note.youdao.com/" target="_blank" rel="noopener">官网</a>将mongodb下载到自己的本地(linux版本)<br>通过winScp上传到服务器任意目录<br>打开xshell到此目录下，敲入以下命令进行解压<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar xvf mongodb-linux-x86_64-amazon-3.4.9.tgz</span><br></pre></td></tr></table></figure></p>
 <p>将解压后的文件重命名并移动到/user/local目录下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mv mongodb-linux-x86_64-amazon-3.4.9 /usr/local/mongodb</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd  /usr/local/mongodb/bin/</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ll</span><br></pre></td></tr></table></figure>
@@ -381,9 +381,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/linux/" rel="tag"># linux</a>
-          
             <a href="/tags/mongodb/" rel="tag"># mongodb</a>
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
           
         </div>
       
@@ -489,7 +489,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -581,7 +581,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

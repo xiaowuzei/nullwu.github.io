@@ -81,17 +81,17 @@
 
 
 
-<meta name="description" content="同步和异步 在js中异步编程有四种情况：定时器、事件绑定、ajax读取数据可以设置为异步，回调函数。 实例每一个浏览器对于定时器的等待时间都有一个最小的数值，如果设置的等待时间小于这个数值，按照最小时间来执行123456var n=0;window.setTimeout(function()&amp;#123;   n++;   console.log(n)&amp;#125;,0)console.log(n)">
+<meta name="description" content="同步和异步 在js中异步编程有四种情况：定时器、事件绑定、ajax读取数据可以设置为异步，回调函数。  实例 每一个浏览器对于定时器的等待时间都有一个最小的数值，如果设置的等待时间小于这个数值，按照最小时间来执行123456var n=0;window.setTimeout(function()&amp;#123;   n++;   console.log(n)&amp;#125;,0)console.log(n">
 <meta property="og:type" content="article">
 <meta property="og:title" content="yibu">
 <meta property="og:url" content="http://yoursite.com/2017/11/23/yibu/index.html">
 <meta property="og:site_name" content="乱码">
-<meta property="og:description" content="同步和异步 在js中异步编程有四种情况：定时器、事件绑定、ajax读取数据可以设置为异步，回调函数。 实例每一个浏览器对于定时器的等待时间都有一个最小的数值，如果设置的等待时间小于这个数值，按照最小时间来执行123456var n=0;window.setTimeout(function()&amp;#123;   n++;   console.log(n)&amp;#125;,0)console.log(n)">
+<meta property="og:description" content="同步和异步 在js中异步编程有四种情况：定时器、事件绑定、ajax读取数据可以设置为异步，回调函数。  实例 每一个浏览器对于定时器的等待时间都有一个最小的数值，如果设置的等待时间小于这个数值，按照最小时间来执行123456var n=0;window.setTimeout(function()&amp;#123;   n++;   console.log(n)&amp;#125;,0)console.log(n">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-24T10:13:48.396Z">
+<meta property="og:updated_time" content="2018-03-10T01:25:56.908Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="yibu">
-<meta name="twitter:description" content="同步和异步 在js中异步编程有四种情况：定时器、事件绑定、ajax读取数据可以设置为异步，回调函数。 实例每一个浏览器对于定时器的等待时间都有一个最小的数值，如果设置的等待时间小于这个数值，按照最小时间来执行123456var n=0;window.setTimeout(function()&amp;#123;   n++;   console.log(n)&amp;#125;,0)console.log(n)">
+<meta name="twitter:description" content="同步和异步 在js中异步编程有四种情况：定时器、事件绑定、ajax读取数据可以设置为异步，回调函数。  实例 每一个浏览器对于定时器的等待时间都有一个最小的数值，如果设置的等待时间小于这个数值，按照最小时间来执行123456var n=0;window.setTimeout(function()&amp;#123;   n++;   console.log(n)&amp;#125;,0)console.log(n">
 
 
 
@@ -323,7 +323,11 @@
       
         <h1 id="同步和异步"><a href="#同步和异步" class="headerlink" title="同步和异步"></a>同步和异步</h1><blockquote>
 <p>在js中异步编程有四种情况：定时器、事件绑定、ajax读取数据可以设置为异步，回调函数。</p>
-<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><p>每一个浏览器对于定时器的等待时间都有一个最小的数值，如果设置的等待时间小于这个数值，按照最小时间来执行<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> n=<span class="number">0</span>;</span><br><span class="line"><span class="built_in">window</span>.setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">   n++;</span><br><span class="line">   <span class="built_in">console</span>.log(n)</span><br><span class="line">&#125;,<span class="number">0</span>)</span><br><span class="line"><span class="built_in">console</span>.log(n)  <span class="comment">//这个依旧先执行</span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><blockquote>
+<p>每一个浏览器对于定时器的等待时间都有一个最小的数值，如果设置的等待时间小于这个数值，按照最小时间来执行<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> n=<span class="number">0</span>;</span><br><span class="line"><span class="built_in">window</span>.setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">   n++;</span><br><span class="line">   <span class="built_in">console</span>.log(n)</span><br><span class="line">&#125;,<span class="number">0</span>)</span><br><span class="line"><span class="built_in">console</span>.log(n)  <span class="comment">//这个依旧先执行</span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
 <p>我们定时器设置的等待时间不一定就是最后执行的时间，如果定时器之后还有其它的事情正在处理中，不管定时器的时间有没有到，都是不会执行定时器。</p>
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> n=<span class="number">0</span>;</span><br><span class="line"><span class="built_in">window</span>.setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">   n++;</span><br><span class="line">   <span class="built_in">console</span>.log(n)  <span class="comment">//不执行</span></span><br><span class="line">&#125;,<span class="number">0</span>)</span><br><span class="line"><span class="built_in">console</span>.log(n)    <span class="comment">//首先执行，0</span></span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>)&#123;  <span class="comment">//死循环</span></span><br><span class="line">    n++</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(n) <span class="comment">//不执行</span></span><br></pre></td></tr></table></figure>
@@ -447,7 +451,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -539,7 +543,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

@@ -81,17 +81,17 @@
 
 
 
-<meta name="description" content="This this是谁与函数在哪里定义的，在哪里执行的没有任何关系。 函数执行，首先看函数名前面是否有”.”，如果有”.”前面是谁this就是谁，如果没有this就是window  1234567891011121314151617function fn() &amp;#123;    console.log(this)&amp;#125;fn();// windowvar obj = &amp;#123; fn: fn">
+<meta name="description" content="This this是谁与函数在哪里定义的，在哪里执行的没有任何关系。   函数执行，首先看函数名前面是否有”.”，如果有”.”前面是谁this就是谁，如果没有this就是window  1234567891011121314151617function fn() &amp;#123;    console.log(this)&amp;#125;fn();// windowvar obj = &amp;#123; fn:">
 <meta property="og:type" content="article">
 <meta property="og:title" content="this">
 <meta property="og:url" content="http://yoursite.com/2017/11/23/this/index.html">
 <meta property="og:site_name" content="乱码">
-<meta property="og:description" content="This this是谁与函数在哪里定义的，在哪里执行的没有任何关系。 函数执行，首先看函数名前面是否有”.”，如果有”.”前面是谁this就是谁，如果没有this就是window  1234567891011121314151617function fn() &amp;#123;    console.log(this)&amp;#125;fn();// windowvar obj = &amp;#123; fn: fn">
+<meta property="og:description" content="This this是谁与函数在哪里定义的，在哪里执行的没有任何关系。   函数执行，首先看函数名前面是否有”.”，如果有”.”前面是谁this就是谁，如果没有this就是window  1234567891011121314151617function fn() &amp;#123;    console.log(this)&amp;#125;fn();// windowvar obj = &amp;#123; fn:">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-24T10:11:58.193Z">
+<meta property="og:updated_time" content="2018-03-10T01:25:56.908Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="this">
-<meta name="twitter:description" content="This this是谁与函数在哪里定义的，在哪里执行的没有任何关系。 函数执行，首先看函数名前面是否有”.”，如果有”.”前面是谁this就是谁，如果没有this就是window  1234567891011121314151617function fn() &amp;#123;    console.log(this)&amp;#125;fn();// windowvar obj = &amp;#123; fn: fn">
+<meta name="twitter:description" content="This this是谁与函数在哪里定义的，在哪里执行的没有任何关系。   函数执行，首先看函数名前面是否有”.”，如果有”.”前面是谁this就是谁，如果没有this就是window  1234567891011121314151617function fn() &amp;#123;    console.log(this)&amp;#125;fn();// windowvar obj = &amp;#123; fn:">
 
 
 
@@ -323,6 +323,8 @@
       
         <h1 id="This"><a href="#This" class="headerlink" title="This"></a>This</h1><blockquote>
 <p>this是谁与函数在哪里定义的，在哪里执行的没有任何关系。</p>
+</blockquote>
+<blockquote>
 <p>函数执行，首先看函数名前面是否有”.”，如果有”.”前面是谁this就是谁，如果没有this就是window</p>
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>)</span><br><span class="line">&#125;</span><br><span class="line">fn();<span class="comment">// window</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123; <span class="attr">fn</span>: fn &#125;</span><br><span class="line">obj.fn()  <span class="comment">//obj</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    fn()</span><br><span class="line">&#125;</span><br><span class="line">sum();  <span class="comment">//window</span></span><br><span class="line"><span class="comment">// 执行this的函数是fn，所以我们只需要观察fn前面是否有"."</span></span><br><span class="line"><span class="keyword">var</span> oo = &#123;</span><br><span class="line">    sum: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        fn()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">oo.sum();  <span class="comment">//window</span></span><br></pre></td></tr></table></figure>
@@ -455,7 +457,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -547,7 +549,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
