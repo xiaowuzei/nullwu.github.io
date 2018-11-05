@@ -10,7 +10,7 @@ categories: 备忘录
 ## 部署node环境
 想要运行node，自然要在服务器上部署node环境
 
-阿里云上有篇教程讲解[部署Node.js项目（CentOS）](部署Node.js项目（CentOS)
+阿里云上有篇教程讲解[https://help.aliyun.com/document_detail/50775.html?spm=a2c4g.11186623.6.835.57aa2529X1NvZA](部署Node.js项目（CentOS)
 
 如果根据以上教程成功搞定，node环境已经安装完成，npm包管理器也有了。由于npm有些资源被屏蔽或者是国外资源的原因，经常会导致用npm安装依赖包的时候失败，所有我还需要npm的国内镜像---cnpm。
 
